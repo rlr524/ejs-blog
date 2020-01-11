@@ -1,0 +1,20 @@
+{
+  "name": "ejs-blog",
+  "version": "0.1.0",
+  "description": "EJS blog challenge for LAB course",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rob Ranf",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "node-sass": "^4.13.0"
+  }
+}
