@@ -4,7 +4,8 @@
   "description": "EJS blog challenge for LAB course",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile-sass": "node-sass sass/main.scss public/styles.css -w",
+    "start": "node server.js"
   },
   "author": "Rob Ranf",
   "license": "ISC",
@@ -16,5 +17,13 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "node-sass": "^4.13.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlr524/ejs-blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rlr524/ejs-blog/issues"
+  },
+  "homepage": "https://github.com/rlr524/ejs-blog#readme"
 }
