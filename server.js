@@ -9,8 +9,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const homeStartingContent = textFill.fillContent;
-const aboutContent = textFill.fillContent;
-const contactContent = textFill.fillContent;
+const aboutContent = textFill.aboutContent;
+const contactContent = textFill.contactContent;
 
 app.get("/", (req, res) => {
   res.render("home", {
@@ -32,6 +32,12 @@ app.get("/contact", (req, res) => {
 
 app.get("/compose", (req, res) => {
   res.render("compose");
+});
+
+app.post("/compose", (req, res) => {
+  const composeText = req.body.composeText;
+  console.log(composeText);
+  res.redirect("/compose");
 });
 
 app.get("/post", (req, res) => {

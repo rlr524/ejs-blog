@@ -1,8 +1,13 @@
+html {
+  min-height: 100%;
+  position: relative; }
+
 .container-fluid {
   padding-top: 70px;
   padding-bottom: 70px; }
 
 .navbar {
+  background-color: #f4f4f4;
   padding-top: 15px;
   padding-bottom: 15px;
   border: 0;
@@ -12,21 +17,21 @@
   letter-spacing: 5px; }
 
 .navbar-nav li a:hover {
-  color: #1abc9c !important; }
+  text-decoration: none;
+  color: #b2dffb !important; }
 
-ul {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; }
+.navbar-header {
+  display: flexbox; }
 
-li {
-  float: right; }
+.header-logo {
+  border-style: solid;
+  background-color: #b2dffb;
+  width: 8%;
+  padding: 1%;
+  vertical-align: middle; }
 
-li a {
-  display: block;
-  text-align: center;
-  padding: 0.25rem; }
+.navbar-brand {
+  vertical-align: sub; }
 
 .footer-padding {
   padding-bottom: 60px; }
@@ -37,7 +42,7 @@ li a {
   bottom: 0;
   width: 100%;
   height: 60px;
-  background-color: lightblue; }
+  background-color: #b2dffb; }
 
 .footer p {
   margin-top: 25px;
