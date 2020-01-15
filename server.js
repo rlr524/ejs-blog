@@ -36,7 +36,10 @@ app.get("/compose", (req, res) => {
 
 app.post("/compose", (req, res) => {
   const composeText = req.body.composeText;
-  console.log(composeText);
+  const composeTitle = req.body.composeTitle;
+  console.log(
+    "The title is: " + composeTitle + " and the text is: " + composeText
+  );
   res.redirect("/compose");
 });
 

@@ -33,6 +33,13 @@ html {
 .navbar-brand {
   vertical-align: sub; }
 
+.btn-primary {
+  background-color: #b2dffb;
+  border: none; }
+
+.compose-text {
+  width: 100%; }
+
 .footer-padding {
   padding-bottom: 60px; }
 
