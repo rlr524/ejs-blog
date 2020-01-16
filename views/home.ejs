@@ -2,7 +2,8 @@
 <div class="container">
   <h1>Home</h1>
   <p>
-    <%= homePlaceholderText %>
+    <%= startingContent %>
   </p>
+  <% postContent.forEach(entry => console.log(entry.titleText)); %>
 </div>
 <%- include("partials/footer"); -%>

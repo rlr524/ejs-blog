@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
+const date = require(__dirname + "/src/getDay.js");
 
 const app = express();
 
@@ -11,10 +12,13 @@ app.use(express.static("public"));
 const homeStartingContent = textFill.fillContent;
 const aboutContent = textFill.aboutContent;
 const contactContent = textFill.contactContent;
+let posts = [];
+const composeDay = date();
 
 app.get("/", (req, res) => {
   res.render("home", {
-    homePlaceholderText: homeStartingContent
+    startingContent: homeStartingContent,
+    postContent: posts
   });
 });
 
@@ -37,10 +41,16 @@ app.get("/compose", (req, res) => {
 app.post("/compose", (req, res) => {
   const composeText = req.body.composeText;
   const composeTitle = req.body.composeTitle;
-  console.log(
-    "The title is: " + composeTitle + " and the text is: " + composeText
-  );
-  res.redirect("/compose");
+  const postObject = {
+    day: composeDay,
+    titleText: composeTitle,
+    bodyText: composeText
+  };
+  let newPost = () => {
+    posts.push(postObject);
+  };
+  newPost();
+  res.redirect("/");
 });
 
 app.get("/post", (req, res) => {

@@ -21,6 +21,7 @@ html {
   font-size: 12px;
   letter-spacing: 5px;
 }
+
 .navbar-nav li a:hover {
   text-decoration: none;
   color: $blue-background !important;
@@ -45,10 +46,6 @@ html {
 .btn-primary {
   background-color: $blue-background;
   border: none;
-}
-
-.compose-text {
-  width: 100%;
 }
 
 .footer-padding {
