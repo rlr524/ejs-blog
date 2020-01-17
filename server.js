@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
 const date = require(__dirname + "/src/getDay.js");
+const _ = require("lodash");
 
 const app = express();
 
@@ -56,14 +57,17 @@ app.post("/compose", (req, res) => {
 });
 
 app.get("/post/:getpost", (req, res) => {
-  const postURL = req.params.getpost;
+  const postURL = _.kebabCase(req.params.getpost);
   posts.forEach(function (post) {
-    const savedTitle = post.titleText;
-    if (postURL === savedTitle) {
-      console.log("Match");
+    const storedTitle = _.kebabCase(post.titleText);
+    if (storedTitle === postURL) {
+      res.render("post", {
+        postPageTitle: post.titleText,
+        postPageDay: post.day,
+        postPageBody: post.bodyText
+      })
     }
   })
-  res.redirect("/")
 });
 
 app.listen(process.env.PORT || 3000, () => {
