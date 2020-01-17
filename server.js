@@ -6,7 +6,9 @@ const date = require(__dirname + "/src/getDay.js");
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 
 const homeStartingContent = textFill.fillContent;
@@ -53,8 +55,15 @@ app.post("/compose", (req, res) => {
   res.redirect("/");
 });
 
-app.get("/post", (req, res) => {
-  res.render("post");
+app.get("/post/:getpost", (req, res) => {
+  const postURL = req.params.getpost;
+  posts.forEach(function (post) {
+    const savedTitle = post.titleText;
+    if (postURL === savedTitle) {
+      console.log("Match");
+    }
+  })
+  res.redirect("/")
 });
 
 app.listen(process.env.PORT || 3000, () => {

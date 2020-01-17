@@ -3,7 +3,10 @@ const date = () => {
     weekday: "long",
     day: "numeric",
     month: "long",
-    year: "numeric"
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
   };
   const today = new Date();
   return today.toLocaleDateString("en-US", options);

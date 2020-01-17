@@ -1,9 +1,11 @@
 <%- include("partials/header"); -%>
 <div class="container">
-  <h1>Home</h1>
-  <p>
-    <%= startingContent %>
-  </p>
-  <% postContent.forEach(entry => console.log(entry.titleText)); %>
+  <h1>Blog</h1>
+  <% postContent.forEach(function(entry){ %>
+  <h3> <%= entry.titleText %> </h3>
+  <p><em> <%= entry.day %> </em></p>
+  <p> <%= entry.bodyText %> </p>
+  <% }) %>
+
 </div>
 <%- include("partials/footer"); -%>
