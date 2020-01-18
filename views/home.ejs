@@ -1,18 +1,24 @@
 <%- include("partials/header"); -%>
 
 <div class="container">
-
   <h1>Blog</h1>
-
   <% postContent.forEach(function(entry){ %>
-  <% let postString = entry.bodyText; %>
-  <% let postLength = 50; %>
-  <% let trimmedPost = postString.length > postLength ? postString.substr(0, postLength - 3) + "..." : postString; %>
   <h3> <%= entry.titleText %> </h3>
   <p><em> <%= entry.day %> </em></p>
-  <p> <%= entry.trimmedPost %> </p>
+  <% const textLength = entry.bodyText.length %>
+  <% const postURL = entry.postTitleURL %>
+  <% if (textLength <= 100) { %>
+  <p><%= entry.bodyText %></p>
+  <% } else { %>
+  <p>
+    <%= entry.bodyText.substring(0, 100) + " ..." %>
+    <a href="/post/<%= entry.titleText%>">Read More</a>
+  </p>
+  <% } %>
   <% }) %>
-
+  <button onclick="window.location.href = '/compose/';" name="newPost" class="btn btn-primary" action>
+    New Post
+  </button>
 </div>
 
 <%- include("partials/footer"); -%>

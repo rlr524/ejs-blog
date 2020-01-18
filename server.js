@@ -47,7 +47,7 @@ app.post("/compose", (req, res) => {
   const postObject = {
     day: composeDay,
     titleText: composeTitle,
-    bodyText: composeText
+    bodyText: composeText,
   };
   let newPost = () => {
     posts.push(postObject);
