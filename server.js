@@ -2,8 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
 // const date = require(__dirname + "/src/getDay.js");
-// const _ = require("lodash");
 const mongoose = require("mongoose");
+
+const homeStartingContent = textFill.fillContent;
+const aboutContent = textFill.aboutContent;
+const contactContent = textFill.contactContent;
+// const composeDay = date();
 
 const app = express();
 
@@ -19,31 +23,57 @@ mongoose.connect("mongodb+srv://blogservice:iGT6R8GQTmwZVhp@cluster0-a5aew.mongo
   useFindAndModify: true
 });
 
-const postsSchema = {
-  composeTitle: String,
-  composeText: String,
+const postSchema = {
+  title: String,
+  content: String,
   date: {
     type: Date,
     default: Date.now
   }
 };
 
-const Post = mongoose.model("Post", postsSchema);
-
-// const homeStartingContent = textFill.fillContent;
-const aboutContent = textFill.aboutContent;
-const contactContent = textFill.contactContent;
-// const composeDay = date();
+const Post = mongoose.model("Post", postSchema);
 
 app.get("/", (req, res) => {
-  Post.find({}, (err, foundPosts) => {
+  Post.find({}, (err, posts) => {
     if (err) {
       console.log(err);
     } else {
       res.render("home", {
-        bodyText: foundPosts
-      })
+        startingContent: homeStartingContent,
+        posts: posts
+      });
     }
+  });
+});
+
+app.get("/compose", (req, res) => {
+  res.render("compose");
+});
+
+app.post("/compose", (req, res) => {
+  const post = new Post({
+    title: req.body.postTitle,
+    content: req.body.postBody
+  });
+  post.save((err) => {
+    if (!err) {
+      res.redirect("/")
+    } else {
+      console.log(err);
+    }
+  });
+});
+
+app.get("/posts/:postID", (req, res) => {
+  const requestedPostId = req.params.postID;
+  Post.findOne({
+    _id: requestedPostId
+  }, (err, post) => {
+    res.render("post", {
+      title: post.title,
+      content: post.content
+    });
   });
 });
 
@@ -58,36 +88,6 @@ app.get("/contact", (req, res) => {
     contactPlaceholderText: contactContent
   });
 });
-
-app.get("/compose", (req, res) => {
-  res.render("compose");
-});
-
-app.post("/compose", (req, res) => {
-  const composeText = req.body.composeText;
-  const composeTitle = req.body.composeTitle;
-  const postObject = new Post({
-    composeTitle: composeTitle,
-    composeText: composeText,
-  });
-  postObject.save();
-  console.log("Posted");
-  res.redirect("/");
-});
-
-// app.get("/post/:getpost", (req, res) => {
-//   const postURL = _.kebabCase(req.params.getpost);
-//   posts.forEach(function (post) {
-//     const storedTitle = _.kebabCase(post.titleText);
-//     if (storedTitle === postURL) {
-//       res.render("post", {
-//         postPageTitle: post.titleText,
-//         postPageDay: post.day,
-//         postPageBody: post.bodyText
-//       })
-//     }
-//   })
-// });
 
 app.listen(process.env.PORT || 3000, () => {
   let port = process.env.PORT || 3000;
