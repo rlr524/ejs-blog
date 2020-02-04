@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
-const date = require(__dirname + "/src/getDay.js");
-const _ = require("lodash");
+// const date = require(__dirname + "/src/getDay.js");
+// const _ = require("lodash");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -22,20 +22,28 @@ mongoose.connect("mongodb+srv://blogservice:iGT6R8GQTmwZVhp@cluster0-a5aew.mongo
 const postsSchema = {
   composeTitle: String,
   composeText: String,
+  date: {
+    type: Date,
+    default: Date.now
+  }
 };
 
 const Post = mongoose.model("Post", postsSchema);
 
-const homeStartingContent = textFill.fillContent;
+// const homeStartingContent = textFill.fillContent;
 const aboutContent = textFill.aboutContent;
 const contactContent = textFill.contactContent;
-let posts = [];
-const composeDay = date();
+// const composeDay = date();
 
 app.get("/", (req, res) => {
-  res.render("home", {
-    startingContent: homeStartingContent,
-    postContent: posts
+  Post.find({}, (err, foundPosts) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("home", {
+        bodyText: foundPosts
+      })
+    }
   });
 });
 
@@ -59,27 +67,27 @@ app.post("/compose", (req, res) => {
   const composeText = req.body.composeText;
   const composeTitle = req.body.composeTitle;
   const postObject = new Post({
-    day: composeDay,
-    titleText: composeTitle,
-    bodyText: composeText,
+    composeTitle: composeTitle,
+    composeText: composeText,
   });
   postObject.save();
+  console.log("Posted");
   res.redirect("/");
 });
 
-app.get("/post/:getpost", (req, res) => {
-  const postURL = _.kebabCase(req.params.getpost);
-  posts.forEach(function (post) {
-    const storedTitle = _.kebabCase(post.titleText);
-    if (storedTitle === postURL) {
-      res.render("post", {
-        postPageTitle: post.titleText,
-        postPageDay: post.day,
-        postPageBody: post.bodyText
-      })
-    }
-  })
-});
+// app.get("/post/:getpost", (req, res) => {
+//   const postURL = _.kebabCase(req.params.getpost);
+//   posts.forEach(function (post) {
+//     const storedTitle = _.kebabCase(post.titleText);
+//     if (storedTitle === postURL) {
+//       res.render("post", {
+//         postPageTitle: post.titleText,
+//         postPageDay: post.day,
+//         postPageBody: post.bodyText
+//       })
+//     }
+//   })
+// });
 
 app.listen(process.env.PORT || 3000, () => {
   let port = process.env.PORT || 3000;
