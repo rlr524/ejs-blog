@@ -20,13 +20,14 @@ h1 {
   letter-spacing: 5px; }
 
 .navbar-nav li a:hover {
-  text-decoration: none;
-  color: #b2dffb !important; }
+  color: #b2dffb !important;
+  text-decoration: none; }
 
 .navbar-header {
   display: flexbox; }
 
 .header-logo {
+  border-color: black;
   border-style: solid;
   background-color: #b2dffb;
   width: 8%;

@@ -27,8 +27,8 @@ h1 {
 }
 
 .navbar-nav li a:hover {
-  text-decoration: none;
   color: $blue-background !important;
+  text-decoration: none;
 }
 
 .navbar-header {
@@ -36,6 +36,7 @@ h1 {
 }
 
 .header-logo {
+  border-color: black;
   border-style: solid;
   background-color: $blue-background;
   width: 8%;

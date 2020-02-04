@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
 const date = require(__dirname + "/src/getDay.js");
 const _ = require("lodash");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -11,6 +12,19 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static("public"));
+
+mongoose.connect("mongodb+srv://blogservice:iGT6R8GQTmwZVhp@cluster0-a5aew.mongodb.net/blogDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: true
+});
+
+const postsSchema = {
+  composeTitle: String,
+  composeText: String,
+};
+
+const Post = mongoose.model("Post", postsSchema);
 
 const homeStartingContent = textFill.fillContent;
 const aboutContent = textFill.aboutContent;
@@ -44,15 +58,12 @@ app.get("/compose", (req, res) => {
 app.post("/compose", (req, res) => {
   const composeText = req.body.composeText;
   const composeTitle = req.body.composeTitle;
-  const postObject = {
+  const postObject = new Post({
     day: composeDay,
     titleText: composeTitle,
     bodyText: composeText,
-  };
-  let newPost = () => {
-    posts.push(postObject);
-  };
-  newPost();
+  });
+  postObject.save();
   res.redirect("/");
 });
 
