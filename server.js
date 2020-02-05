@@ -1,13 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
-// const date = require(__dirname + "/src/getDay.js");
 const mongoose = require("mongoose");
 
-const homeStartingContent = textFill.fillContent;
 const aboutContent = textFill.aboutContent;
-const contactContent = textFill.contactContent;
-// const composeDay = date();
 
 const app = express();
 
@@ -40,7 +36,6 @@ app.get("/", (req, res) => {
       console.log(err);
     } else {
       res.render("home", {
-        startingContent: homeStartingContent,
         posts: posts
       });
     }
@@ -72,6 +67,7 @@ app.get("/posts/:postID", (req, res) => {
   }, (err, post) => {
     res.render("post", {
       title: post.title,
+      date: post.date,
       content: post.content
     });
   });
@@ -84,8 +80,10 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
+  let emailS = "emiyaconsulting.com";
+  let emailA = "rob";
   res.render("contact", {
-    contactPlaceholderText: contactContent
+    emailC: emailA + "@" + emailS
   });
 });
 

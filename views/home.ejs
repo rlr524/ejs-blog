@@ -2,12 +2,18 @@
 
 <div class="container">
   <h1>Blog</h1>
-  <p> <%= startingContent %> </p>
   <% posts.forEach(function(post){ %>
-  <h3> <%= post.title %> </h3>
+  <h4>
+    <%= post.title %>
+  </h4>
+  <p>
+    <em>
+      <%= post.date %>
+    </em>
+  </p>
   <p>
     <%= post.content.substring(0, 100) + " ..." %>
-    <a href="/posts/<%= post._id%>">Read More</a>
+    <a class="more-text" href="/posts/<%= post._id%>">Read More</a>
   </p>
   <% }) %>
   <button onclick="window.location.href = '/compose/';" name="newPost" class="btn btn-primary" action>

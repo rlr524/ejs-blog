@@ -37,6 +37,13 @@ h1 {
 .navbar-brand {
   vertical-align: sub; }
 
+.more-text:hover {
+  color: #b2dffb !important;
+  text-decoration: none; }
+
+button:hover {
+  background-color: #EEEEEE !important; }
+
 .btn-primary {
   background-color: #b2dffb;
   border: none; }

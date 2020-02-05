@@ -1,5 +1,6 @@
 $light-background: #f4f4f4;
 $blue-background: #b2dffb;
+$light-grey-background: #EEEEEE;
 
 html {
   min-height: 100%;
@@ -46,6 +47,15 @@ h1 {
 
 .navbar-brand {
   vertical-align: sub;
+}
+
+.more-text:hover {
+  color: $blue-background !important;
+  text-decoration: none;
+}
+
+button:hover {
+  background-color: $light-grey-background !important;
 }
 
 .btn-primary {
