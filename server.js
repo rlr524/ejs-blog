@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const textFill = require("./data/content.json");
@@ -8,16 +9,21 @@ const aboutContent = textFill.aboutContent;
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://blogservice:iGT6R8GQTmwZVhp@cluster0-a5aew.mongodb.net/blogDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: true
-});
+mongoose.connect(
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-a5aew.mongodb.net/blogDB`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true
+  }
+);
 
 const postSchema = {
   title: String,
@@ -51,9 +57,9 @@ app.post("/compose", (req, res) => {
     title: req.body.postTitle,
     content: req.body.postBody
   });
-  post.save((err) => {
+  post.save(err => {
     if (!err) {
-      res.redirect("/")
+      res.redirect("/");
     } else {
       console.log(err);
     }
@@ -62,15 +68,18 @@ app.post("/compose", (req, res) => {
 
 app.get("/posts/:postID", (req, res) => {
   const requestedPostId = req.params.postID;
-  Post.findOne({
-    _id: requestedPostId
-  }, (err, post) => {
-    res.render("post", {
-      title: post.title,
-      date: post.date,
-      content: post.content
-    });
-  });
+  Post.findOne(
+    {
+      _id: requestedPostId
+    },
+    (err, post) => {
+      res.render("post", {
+        title: post.title,
+        date: post.date,
+        content: post.content
+      });
+    }
+  );
 });
 
 app.get("/about", (req, res) => {
